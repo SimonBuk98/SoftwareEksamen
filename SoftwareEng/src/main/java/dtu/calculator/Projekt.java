@@ -31,10 +31,11 @@ public class Projekt {
 
 	public static boolean tjekForMedarbejder(String bruger){
 		for(int i = 0; i <= medarbejderliste.size(); i++){
-			if (bruger == medarbejderliste.get(i).bruger){
+			if (bruger == medarbejderliste.get(i).initialer){
 				return true;
 			}
 		}
+		return false;
 	}
 
     public static boolean tjekAktivitet(String navn){
