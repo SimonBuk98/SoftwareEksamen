@@ -1,5 +1,6 @@
 package dtu.calculator;
 
+import java.util.Calendar;
 import java.util.Scanner;
 
 
@@ -73,7 +74,7 @@ public class App {
 			System.out.println("Indtast navn på aktivitet:");
 			String navn1 = scanner.nextLine();
 			if (!oversigt.faProjekt(nummer).tjekAktivitet(navn1)) {
-				oversigt.faProjekt(nummer).aktivitetsliste.add(new Aktivitet(navn));
+				oversigt.faProjekt(nummer).tilfojAktivitet(new Aktivitet(navn1));
 			}
 
 			else {
@@ -128,6 +129,52 @@ public class App {
 //	}
 //	
 
+private static void sletAktivitet(){
+	System.out.println("Hvilket af følgende projekter vil du slette en aktivitet fra?");
+	bruger.printProjekter(bruger);
+	int projekt = scanner.nextInt();
+	System.out.println("Hvilken af følgende aktiviteter vil du slette?");
+	bruger.projekter.get(projekt).printAktiviteter();
+	
+	if (!bruger.projekter.get(projekt).aktivitetsliste.isEmpty()) {
+		int aktivitet = scanner.nextInt();
+		bruger.projekter.get(projekt).fjernAktivitet(bruger.aktiviteter.get(aktivitet));
+	}
+}
+
+private static void startSlutAktivitet(){
+	System.out.println("Hvilket projekt hører aktiviteten under?");
+	bruger.printProjekter(bruger);
+	int projekt = scanner.nextInt();
+	
+	System.out.println("Hvilken aktivitet?");
+	bruger.projekter.get(projekt).printAktiviteter();
+	int aktivitet = scanner.nextInt();
+
+	
+	System.out.println("Angiv startdato DDMMYYYY");
+	int start = scanner.nextInt();
+
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.DAY_OF_MONTH, start/1000000);
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.MONTH, (start/10000)%100);
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.YEAR, start%10000);
+
+	System.out.println("Angiv slutdato DDMMYYYY");
+	int slut = scanner.nextInt();
+
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.DAY_OF_MONTH, slut/1000000);
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.MONTH, (slut/10000)%100);
+	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.YEAR, slut%10000);
+
+}
+
+private static void startSlutProjekt(){
+	System.out.println("Hvilket projekt?");
+	bruger.printProjekter(bruger);
+	int valg = scanner.nextInt();
+	System.out.println("");
+	
+}
 
 	private static void tilfojmedarbejder(String hjalp) {
 		// TODO Auto-generated method stub
@@ -156,6 +203,34 @@ public class App {
 
 		else if (valg == 7){
 //			opretProjektAktivitet();
+		}
+
+		else if (valg == 9){
+			sletAktivitet();
+		}
+
+		else if (valg == 13){
+		System.out.println("Vil du angive budgetteret tid eller start/slut-dato?");
+		System.out.println("1: budgetteret tid");
+		System.out.println("2: start/slut-dato");
+		int valg2 = scanner.nextInt();
+
+		if (valg2 == 1) {
+
+		}
+		else if (valg2 == 2) {
+			System.out.println("Vil du angive tid for et projekt eller en aktivitet?");
+			int valg3 = scanner.nextInt();
+
+			if (valg3 == 1) {
+				startSlutAktivitet();
+			}
+			if (valg3 == 2) {
+				startSlutProjekt();
+			}
+		}
+		
+
 		}
 		
 

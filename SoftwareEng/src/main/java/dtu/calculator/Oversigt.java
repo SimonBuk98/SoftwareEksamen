@@ -41,7 +41,7 @@ public class Oversigt {
 	public Bruger fåMedarbejder(String initialer) {
 		int j = 0;
 		for (int i = 0; i < brugere.size(); i++) {
-			if (brugere.get(i).initialer.toLowerCase() == initialer.toLowerCase()) {
+			if (brugere.get(i).initialer == initialer) {
 				j = i;
 				break;
 			}
@@ -49,7 +49,7 @@ public class Oversigt {
 		return brugere.get(j);
 	}
 
-	public Projekt faProjekt(int nummer) {
+	public static Projekt faProjekt(int nummer) {
 		int j = 0;
 		for (int i = 0; i < brugere.size(); i++) {
 			if (projekter.get(i).projektnummer == nummer) {

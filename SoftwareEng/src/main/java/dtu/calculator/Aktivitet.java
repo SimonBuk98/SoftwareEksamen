@@ -1,19 +1,19 @@
 package dtu.calculator;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Aktivitet {
 
     public String navn;
     public static  ArrayList<Tidsforbrug> tider = new ArrayList<Tidsforbrug>();
+    Calendar start = Calendar.getInstance();
+    Calendar slut = Calendar.getInstance();
 
     
     public Aktivitet(String navn){
         this.navn = navn;
     }
 
-    public static void tilfojMedarbejder(Bruger bruger){
-		
-	}
    
     public double tjekMedarbejder(Bruger bruger){
 		for (int i = 0; i < tider.size(); i++){
@@ -24,13 +24,14 @@ public class Aktivitet {
         return 0;
 	}
 
-    public void satTid(Bruger bruger, double tid){
+    public boolean satTid(Bruger bruger, double tid){
         for (int i = 0; i < tider.size(); i++){
             if (bruger == tider.get(i).bruger){
                 tider.get(i).satTid(tid);
-                break;
+                return true;
             }
         }
+        return false; 
     }
 
     public static void sumTid(){
