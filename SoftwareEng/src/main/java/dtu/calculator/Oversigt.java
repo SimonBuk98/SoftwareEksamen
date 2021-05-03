@@ -68,10 +68,10 @@ public class Oversigt {
 		return projekter.contains(projekt);
 	}
 	
-	public String printProjekter() {
+	public void printProjekter() {
 		String alle = "";
 		for (int i=0; i < projekter.size(); i++) {
-			
+			System.out.println(i + ": " + projekter.get(i).navn);
 		}
 	}
 

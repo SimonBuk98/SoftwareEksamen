@@ -56,11 +56,15 @@ public class App {
 	}
 	
 	private static void projektleder() {
-		System.out.println("Hvem vil du udnævne til projektleder?");
+		System.out.println("Hvem vil du udn�vne til projektleder?");
 		String initialer = scanner.next();
 		if (oversigt.tjekMedarbejder(initialer)) {
-			System.out.println("Vælg et projekt:");
-			System.out.println()
+			System.out.println("V�lg et projekt:");
+			oversigt.printProjekter();
+			int projektnummer = scanner.nextInt();
+			Projekt.tjekForMedarbejder(initialer);
+			oversigt.faProjekt(projektnummer).projektleder = oversigt.fåMedarbejder(initialer);
+			oversigt.fåMedarbejder(initialer).projektleder = true;
 		}
 		else {
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
