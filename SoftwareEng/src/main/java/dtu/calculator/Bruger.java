@@ -51,8 +51,14 @@ public class Bruger {
 			System.out.println(i + ": " + aktiviteter.get(i).navn);
 		}	
 	}
+	
+	public void printProjekter(){
+		for (int i = 0; i < projekter.size(); i++){
+			System.out.println(i + ": " + projekter.get(i).navn);
+		}	
+	}
 
-	public void printProjekter(Bruger bruger){
+	public void projektlederFor(Bruger bruger){
 		for (int i = 0; i < projekter.size(); i++){
 			if (projekter.get(i).projektleder == bruger) {
 			System.out.println(i + ": " + projekter.get(i).navn);

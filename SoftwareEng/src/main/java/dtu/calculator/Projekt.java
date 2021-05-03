@@ -46,7 +46,7 @@ public class Projekt {
 	}
 
 	
-	public Aktivitet fåAktivitet(String aktivitetsnavn) {
+	public static Aktivitet fåAktivitet(String aktivitetsnavn) {
 		int j = 0;
 		for (int i = 0; i < aktivitetsliste.size(); i++) {
 			if (aktivitetsliste.get(i).navn == aktivitetsnavn) {
