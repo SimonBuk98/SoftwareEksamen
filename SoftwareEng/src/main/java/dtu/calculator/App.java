@@ -165,6 +165,13 @@ private static void startSlutAktivitet(){
 	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.DAY_OF_MONTH, slut/1000000);
 	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.MONTH, (slut/10000)%100);
 	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.YEAR, slut%10000);
+	
+	if (bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.before(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start)) {
+		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start = null;
+		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut = null;
+		fejlbesked.satFejlbesked("Ugyldige datoer");
+		System.out.println(fejlbesked.faFejlbesked());
+	}
 
 }
 
