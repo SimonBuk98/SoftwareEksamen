@@ -34,7 +34,11 @@ public class Aktivitet {
         return false; 
     }
 
-    public static void sumTid(){
-        
+    public static double sumTid(){
+    	double sum = 0;
+    	for (int i = 0; i < tider.size(); i++){
+    		sum += tider.get(i).tid;
+        }
+    	return sum;
     }
 }

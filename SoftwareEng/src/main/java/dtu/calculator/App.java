@@ -54,6 +54,19 @@ public class App {
 			fejlbesked.faFejlbesked();
 		}
 	}
+	
+	private static void projektleder() {
+		System.out.println("Hvem vil du udnævne til projektleder?");
+		String initialer = scanner.next();
+		if (oversigt.tjekMedarbejder(initialer)) {
+			System.out.println("Vælg et projekt:");
+			System.out.println()
+		}
+		else {
+			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
+			System.out.println(fejlbesked.faFejlbesked());
+		}
+	}
 
 	public static void opretProjekt() {
 		System.out.println("Indtast nummer for projekt:");
@@ -148,6 +161,7 @@ public class App {
 
 		oversigt.fjernProjekt(bruger.projekter.get(projekt));
 		bruger.fjernProjekt(bruger.projekter.get(projekt));
+
 	}
 
 	private static void startSlutAktivitet() {
@@ -287,14 +301,26 @@ public class App {
 		}
 
 	}
-	
+
 	private static void budget() {
-		
+
+		System.out.println("Hvilket projekt vil du sætte budgetteret tid for?");
+		bruger.projektlederFor(bruger);
+		int projekt = scanner.nextInt();
+
+		System.out.println("Hvor mange timer skal projektet budgetteres til?");
+		double timer = scanner.nextDouble();
+
+		bruger.projekter.get(projekt).budgetteretTid = timer;
 	}
 
 	private static void opfolgning() {
+
 		System.out.println("Hvilket projekt vil du indhente opfølgning om?");
 		bruger.projektlederFor(bruger);
+		int projekt = scanner.nextInt();
+
+		bruger.projekter.get(projekt).opfolgning();
 
 	}
 
@@ -303,29 +329,31 @@ public class App {
 
 		if (valg == 1) {
 			opretBruger();
-		} else if (valg == 2) {
-			opretProjekt();
+		}else if (valg == 2) {
+			projektleder();
 		} else if (valg == 3) {
-			registrerTid();
+			opretProjekt();
 		} else if (valg == 4) {
-			bruger.printTid(bruger);
+			registrerTid();
 		} else if (valg == 5) {
-			satStatus();
+			bruger.printTid(bruger);
 		} else if (valg == 6) {
-			anmodHjalp();
+			satStatus();
 		} else if (valg == 7) {
-			opretAktivitet();
+			anmodHjalp();
 		} else if (valg == 8) {
-			sletAktivitet();
+			opretAktivitet();
 		} else if (valg == 9) {
-			sletProjekt();
+			sletAktivitet();
 		} else if (valg == 10) {
-			brugerProjekt();
+			sletProjekt();
 		} else if (valg == 11) {
-			brugerAktivitet();
+			brugerProjekt();
 		} else if (valg == 12) {
-			opfolgning();
+			brugerAktivitet();
 		} else if (valg == 13) {
+			opfolgning();
+		} else if (valg == 14) {
 			System.out.println("Vil du angive budgetteret tid eller start/slut-dato?");
 			System.out.println("1: budgetteret tid");
 			System.out.println("2: start/slut-dato");

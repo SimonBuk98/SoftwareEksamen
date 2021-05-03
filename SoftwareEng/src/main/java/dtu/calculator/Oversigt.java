@@ -19,6 +19,10 @@ public class Oversigt {
 	public void tilføjProjekt(Projekt projekt) {
 		projekter.add(projekt);
 	}
+	
+	public void fjernProjekt(Projekt projekt) {
+		projekter.remove(projekt);
+	}
 
 	public static boolean tjekMedarbejder(String initialer) {
 		for (int i = 0; i < brugere.size(); i++) {
@@ -62,6 +66,13 @@ public class Oversigt {
 
 	public boolean tjekProjekt(Projekt projekt) {
 		return projekter.contains(projekt);
+	}
+	
+	public String printProjekter() {
+		String alle = "";
+		for (int i=0; i < projekter.size(); i++) {
+			
+		}
 	}
 
 }

@@ -38,6 +38,11 @@ public class Bruger {
 	public  void tilfojProjekt(Projekt projekt){
 		projekter.add(projekt);
 	}
+	
+	public void fjernProjekt(Projekt projekt) {
+		projekter.remove(projekt);
+	}
+	
 	public boolean tjekAktivitet(String aktivitet) {
 		for(int i = 0; i < aktiviteter.size(); i++){
 			if (aktivitet == aktiviteter.get(i).navn){
