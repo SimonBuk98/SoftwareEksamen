@@ -314,55 +314,22 @@ public class ExampleSteps {
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.set(Calendar.MONTH,(slutdato/10000)%100);
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.set(Calendar.YEAR, slutdato%10000);
 
-		System.out.println(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.getTime().toString());
-		System.out.println(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getTime().toString());
-
-		System.out.println(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.MONTH));
-		System.out.println(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.get(Calendar.MONTH));
-
-		// SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-		// String formatStart = formatter.format((TemporalAccessor) app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.getTime());
-
-		// System.out.println(formatStart);
-
-
-
-		// System.out.println(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.MONTH));
-		
-
 	}
 
 	@Then("start er {int} {int} {int} og slut {int} {int} {int} for aktiviteten {string} under projektet {int}")
 	public void start_er_og_slut(int startD, int startM, int startY, int slutD, int slutM, int slutY, String aktivitet, int projekt) {
 
-//HUSK DECEMBER ER 0, OG IKKE 12
 
-		// SimpleDateFormat formatter = new SimpleDateFormat("ddMMyyyy");
-		// String formatStart = formatter.format((TemporalAccessor) app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.getTime());
+		assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.DAY_OF_MONTH), startD);
 
-		// System.out.println(formatStart);
+		if (app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.MONTH) == 0) {
+			assertEquals(12, startM);
+		}
+		else {
+			assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.MONTH), startM);
+		}
 
-
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.DAY_OF_MONTH, startD));
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.MONTH, startM));
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.YEAR, startY));
-
-
-
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getDate(),slutD);
-		// System.out.print("SlutD: " + app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getDate());
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getMonth(),slutM);
-		// System.out.println("SlutM: " + app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getMonth());
-
-		// assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getYear(),slutY);
-		// System.out.println("SlutY: " + app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.getYear());
-
-
+		assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.YEAR), startY);
+		
 	}
-
 }
