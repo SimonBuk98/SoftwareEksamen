@@ -270,28 +270,32 @@ public class App {
 
 			if (oversigt.fåMedarbejder(initialer)
 					.tjekAktivitet(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).navn)) {
-				
+
 				fejlbesked.satFejlbesked("Brugeren er allerde en del af aktiviteten");
 				System.out.println(fejlbesked.faFejlbesked());
-				
+
 			} else {
-				
+
 				oversigt.fåMedarbejder(initialer)
 						.tilfojAktivitet(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet));
 			}
-			
+
 		} else {
-			
+
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
 			System.out.println(fejlbesked.faFejlbesked());
 		}
 
 	}
 	
+	private static void budget() {
+		
+	}
+
 	private static void opfolgning() {
 		System.out.println("Hvilket projekt vil du indhente opfølgning om?");
 		bruger.projektlederFor(bruger);
-		
+
 	}
 
 	public static void options() {
@@ -299,9 +303,7 @@ public class App {
 
 		if (valg == 1) {
 			opretBruger();
-		}
-
-		else if (valg == 2) {
+		} else if (valg == 2) {
 			opretProjekt();
 		} else if (valg == 3) {
 			registrerTid();
@@ -330,7 +332,7 @@ public class App {
 			int valg2 = scanner.nextInt();
 
 			if (valg2 == 1) {
-
+				budget();
 			} else if (valg2 == 2) {
 				System.out.println("Vil du angive tid for et projekt eller en aktivitet?");
 				int valg3 = scanner.nextInt();
