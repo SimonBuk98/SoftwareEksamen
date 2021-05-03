@@ -12,13 +12,16 @@ public class App {
 	public static boolean tændt = true;
 	public static Bruger bruger;
 	public static Oversigt oversigt = new Oversigt();
-	public static Menu menu;
+	public static Menu menu = new Menu();
 	public static Fejlbesked fejlbesked = new Fejlbesked();
 	
 
 	public static void main(String[] args) {
-	
 		
+		opretBruger();
+		
+		System.out.print(oversigt.brugere.get(0).initialer);
+	
 		while (tændt) {
 			while (!loggedind) {
 				login();
@@ -61,8 +64,9 @@ public class App {
 			System.out.println("Indtast nummer for projekt:");
 			int nummer = scanner.nextInt();
 			System.out.println("Indtast navn for projekt:");
-			String navn = scanner.nextLine();
+			String navn = scanner.next();
 			oversigt.projekter.add(new Projekt(navn, nummer));
+			System.out.print("oprettet");
 	}
 	
 	public void opretAktivitet(){

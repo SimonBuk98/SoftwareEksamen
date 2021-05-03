@@ -22,7 +22,7 @@ public class Oversigt {
 
 	public static boolean tjekMedarbejder(String initialer) {
 		for (int i = 0; i < brugere.size(); i++) {
-			if (brugere.get(i).initialer == initialer) {
+			if (brugere.get(i).initialer.equals(initialer)) {
 				return true;
 			}
 		}
