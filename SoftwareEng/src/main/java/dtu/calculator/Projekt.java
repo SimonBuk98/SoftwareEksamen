@@ -14,8 +14,8 @@ public class Projekt {
 	static ArrayList<Bruger> medarbejderliste = new ArrayList<Bruger>();
 	static ArrayList<Aktivitet> aktivitetsliste = new ArrayList<Aktivitet>();
 
-	Calendar start;
-	Calendar slut;
+	Calendar start = Calendar.getInstance();
+	Calendar slut = Calendar.getInstance();
 
 	double budgetteretTid;
 

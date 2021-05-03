@@ -18,6 +18,7 @@ public class Menu {
 		System.out.println("7 for at anmode om hjælp");
 
 		if (id.projektleder) {
+			System.out.println("");
 			System.out.println("Projektleder-menu:");
 			System.out.println("8 for at oprette en aktivitet");
 			System.out.println("9 for at slette en aktivitet");

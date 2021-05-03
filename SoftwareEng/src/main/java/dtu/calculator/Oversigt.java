@@ -35,7 +35,7 @@ public class Oversigt {
 
 	public static boolean tjekProjekt(String projekt ,int nummer){
 		for (int i = 0; i < projekter.size(); i++) {
-			if (projekter.get(i).projektnummer == nummer && projekter.get(i).navn == projekt) {
+			if (projekter.get(i).projektnummer == nummer && projekter.get(i).navn.equals(projekt)) {
 				return true;
 			}
 		}
@@ -71,7 +71,7 @@ public class Oversigt {
 	public void printProjekter() {
 		String alle = "";
 		for (int i=0; i < projekter.size(); i++) {
-			System.out.println(i + ": " + projekter.get(i).navn);
+			System.out.println(i + ": " + projekter.get(i).navn + "-" + projekter.get(i).projektnummer);
 		}
 	}
 

@@ -17,13 +17,17 @@ public class App {
 	public static void main(String[] args) {
 
 		opretBruger();
+		opretProjekt();
+		opretAktivitet();
 
 		while (tændt) {
 			while (!loggedind) {
 				login();
 			}
 			while (loggedind) {
+				System.out.println("");
 				menu.startMenu(bruger);
+				System.out.println("");
 				options();
 			}
 		}
@@ -33,7 +37,7 @@ public class App {
 
 		System.out.println("Login med dine initialer:");
 
-		String login = scanner.nextLine();
+		String login = scanner.next();
 
 		if (oversigt.tjekMedarbejder(login)) {
 			loggedind = true;
@@ -45,26 +49,29 @@ public class App {
 
 	public static void opretBruger() {
 		System.out.println("Indtast intialer for brugeren:");
-		String initialer = scanner.nextLine();
+		String initialer = scanner.next();
+		
 
 		if (!oversigt.tjekMedarbejder(initialer)) {
 			oversigt.brugere.add(new Bruger(initialer));
 		} else {
 			fejlbesked.satFejlbesked("Disse intialer er allerede taget");
-			fejlbesked.faFejlbesked();
+			System.out.println(fejlbesked.faFejlbesked());
 		}
 	}
 	
 	private static void projektleder() {
-		System.out.println("Hvem vil du udn�vne til projektleder?");
+		System.out.println("Hvem vil du udnævne til projektleder?");
 		String initialer = scanner.next();
 		if (oversigt.tjekMedarbejder(initialer)) {
-			System.out.println("V�lg et projekt:");
+			System.out.println("Vælg et projekt:");
 			oversigt.printProjekter();
 			int projektnummer = scanner.nextInt();
-			Projekt.tjekForMedarbejder(initialer);
 			oversigt.faProjekt(projektnummer).projektleder = oversigt.fåMedarbejder(initialer);
 			oversigt.fåMedarbejder(initialer).projektleder = true;
+			
+			oversigt.faProjekt(projektnummer).tilfojmedarbejder(bruger);
+			bruger.tilfojProjekt(oversigt.faProjekt(projektnummer));
 		}
 		else {
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
@@ -81,33 +88,33 @@ public class App {
 	}
 
 	public static void opretAktivitet() {
-		System.out.println("Indtast nummer på aktivitetens projekt:");
-		int nummer = scanner.nextInt();
-		System.out.println("Indtast navn på aktivitetens projekt:");
-		String navn = scanner.next();
-		if (oversigt.tjekProjekt(navn, nummer)) {
+		System.out.println("Projekter:");
+		oversigt.printProjekter();
+		System.out.println("Vælg et projekt til aktiviteten");
+		int projekt = scanner.nextInt();
+		if (oversigt.tjekProjekt(oversigt.projekter.get(projekt).navn, oversigt.projekter.get(projekt).projektnummer)) {
 
-			if (bruger == oversigt.faProjekt(nummer).projektleder) {
+			if (bruger == oversigt.projekter.get(projekt).projektleder) {
 				System.out.println("Indtast navn på aktivitet:");
-				String navn1 = scanner.nextLine();
-				if (!oversigt.faProjekt(nummer).tjekAktivitet(navn1)) {
-					oversigt.faProjekt(nummer).tilfojAktivitet(new Aktivitet(navn1));
+				String navn1 = scanner.next();
+				if (!oversigt.projekter.get(projekt).tjekAktivitet(navn1)) {
+					oversigt.projekter.get(projekt).tilfojAktivitet(new Aktivitet(navn1));
 				}
 
 				else {
-					fejlbesked.satFejlbesked("Der eksisterer allerede en aktivitet med navnet " + "\"" + navn + "\"");
-					fejlbesked.faFejlbesked();
+					fejlbesked.satFejlbesked("Der eksisterer allerede en aktivitet med navnet " + "\"" + oversigt.projekter.get(projekt).navn + "\"");
+					System.out.println(fejlbesked.faFejlbesked());
 				}
 			}
 
 			else {
-				fejlbesked.satFejlbesked("Du er ikke projektleder på projekt " + nummer);
-				fejlbesked.faFejlbesked();
+				fejlbesked.satFejlbesked("Du er ikke projektleder på projekt " + oversigt.projekter.get(projekt).projektnummer);
+				System.out.println(fejlbesked.faFejlbesked());
 			}
 
 		} else {
-			fejlbesked.satFejlbesked("Der eksisterer ikke et projekt med nummeret " + nummer + " og navnet " + navn);
-			fejlbesked.faFejlbesked();
+			fejlbesked.satFejlbesked("Der eksisterer ikke et projekt med nummeret " + oversigt.projekter.get(projekt).projektnummer + " og navnet " + oversigt.projekter.get(projekt).navn);
+			System.out.println(fejlbesked.faFejlbesked());
 		}
 	}
 
@@ -367,6 +374,9 @@ public class App {
 				budget();
 			} else if (valg2 == 2) {
 				System.out.println("Vil du angive tid for et projekt eller en aktivitet?");
+				System.out.println("1: aktivitet");
+				System.out.println("2: projekt");
+				
 				int valg3 = scanner.nextInt();
 
 				if (valg3 == 1) {

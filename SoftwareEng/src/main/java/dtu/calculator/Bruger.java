@@ -64,6 +64,7 @@ public class Bruger {
 	}
 
 	public void projektlederFor(Bruger bruger){
+		System.out.println("Projekter: " + projekter.size());
 		for (int i = 0; i < projekter.size(); i++){
 			if (projekter.get(i).projektleder == bruger) {
 			System.out.println(i + ": " + projekter.get(i).navn);
