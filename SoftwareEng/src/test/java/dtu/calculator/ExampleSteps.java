@@ -304,8 +304,7 @@ public class ExampleSteps {
 
 	@When("brugeren {string} sætter start til {int} og slut til {int} for aktiviteten {string} under projektet {int}")
 	public void brugeren_sætter_start_til_og_slut_til(String bruger, Integer startdato, Integer slutdato, String aktivitet, int projekt) {
-
-
+		
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.set(Calendar.DAY_OF_MONTH, startdato/1000000);
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.set(Calendar.MONTH, (startdato/10000)%100);
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.set(Calendar.YEAR, startdato%10000);
@@ -313,6 +312,15 @@ public class ExampleSteps {
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.set(Calendar.DAY_OF_MONTH, slutdato/1000000);
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.set(Calendar.MONTH,(slutdato/10000)%100);
 		app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.set(Calendar.YEAR, slutdato%10000);
+		
+		if (app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut.before(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start)) {
+			
+			app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start = null;
+			app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).slut = null;
+			
+			app.fejlbesked.satFejlbesked("Ugyldige datoer");
+			System.out.println(app.fejlbesked.faFejlbesked());
+		}
 
 	}
 

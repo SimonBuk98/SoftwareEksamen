@@ -51,7 +51,7 @@ public class Oversigt {
 
 	public static Projekt faProjekt(int nummer) {
 		int j = 0;
-		for (int i = 0; i < brugere.size(); i++) {
+		for (int i = 0; i < projekter.size(); i++) {
 			if (projekter.get(i).projektnummer == nummer) {
 				j = i;
 				break;

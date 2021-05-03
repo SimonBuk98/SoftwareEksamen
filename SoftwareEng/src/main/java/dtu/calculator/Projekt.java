@@ -23,13 +23,8 @@ public class Projekt {
 		this.projektnummer = projektnummer;
 	}
 
-	public void satTid(GregorianCalendar start, GregorianCalendar slut) {
-
-	}
-
 	public void tilfojmedarbejder(Bruger brugeren) {
 		medarbejderliste.add(brugeren);
-
 	}
 
 	public static boolean tjekForMedarbejder(String bruger){

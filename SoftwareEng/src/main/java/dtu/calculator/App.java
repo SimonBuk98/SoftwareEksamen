@@ -17,6 +17,7 @@ public class App {
 	
 
 	public static void main(String[] args) {
+	
 		
 		while (tændt) {
 			while (!loggedind) {
@@ -167,8 +168,10 @@ private static void startSlutAktivitet(){
 	bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.YEAR, slut%10000);
 	
 	if (bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.before(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start)) {
+		
 		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start = null;
 		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut = null;
+		
 		fejlbesked.satFejlbesked("Ugyldige datoer");
 		System.out.println(fejlbesked.faFejlbesked());
 	}
