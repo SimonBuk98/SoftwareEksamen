@@ -25,8 +25,10 @@ public class Aktivitet {
 	}
 
     public boolean satTid(Bruger bruger, double tid){
+    	System.out.println("Størrelse på tider: " + tider.size());
         for (int i = 0; i < tider.size(); i++){
             if (bruger == tider.get(i).bruger){
+            	System.out.println("inde hos " + tider.get(i).bruger.initialer);
                 tider.get(i).satTid(tid);
                 return true;
             }

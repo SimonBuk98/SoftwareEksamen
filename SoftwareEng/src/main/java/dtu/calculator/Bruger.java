@@ -50,8 +50,9 @@ public class Bruger {
 		return projektleder;
 	}
 
-	public void tilfojAktivitet(Aktivitet aktivitet){
+	public void tilfojAktivitet(Aktivitet aktivitet, Bruger bruger){
 		aktiviteter.add(aktivitet);
+		aktivitet.tider.add(new Tidsforbrug(bruger));
 	}
 
 	public  void tilfojProjekt(Projekt projekt){

@@ -70,8 +70,8 @@ public class App {
 			oversigt.projekter.get(projektnummer).projektleder = oversigt.fåMedarbejder(initialer);
 			oversigt.fåMedarbejder(initialer).projektleder = true;
 
-			oversigt.projekter.get(projektnummer).tilfojmedarbejder(bruger);
-			bruger.tilfojProjekt(oversigt.projekter.get(projektnummer));
+			oversigt.projekter.get(projektnummer).tilfojmedarbejder(oversigt.fåMedarbejder(initialer));
+			oversigt.fåMedarbejder(initialer).tilfojProjekt(oversigt.projekter.get(projektnummer));
 		} else {
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
 			System.out.println(fejlbesked.faFejlbesked());
@@ -146,7 +146,7 @@ public class App {
 			bruger.printAktiviteter();
 			int aktivitet = scanner.nextInt();
 
-			oversigt.fåMedarbejder(hjalp).tilfojAktivitet(bruger.aktiviteter.get(aktivitet));
+			oversigt.fåMedarbejder(hjalp).tilfojAktivitet(bruger.aktiviteter.get(aktivitet), oversigt.fåMedarbejder(hjalp));
 		} else {
 			fejlbesked.satFejlbesked("Der eksisterer ikke en bruger med intialerne " + hjalp);
 			System.out.println(fejlbesked.faFejlbesked());
@@ -155,7 +155,7 @@ public class App {
 
 	private static void sletAktivitet() {
 		System.out.println("Hvilket af følgende projekter vil du slette en aktivitet fra?");
-		bruger.projektlederFor(bruger);
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
 
 		if (!bruger.projekter.get(projekt).aktivitetsliste.isEmpty()) {
@@ -305,7 +305,7 @@ public class App {
 			} else {
 
 				oversigt.fåMedarbejder(initialer)
-						.tilfojAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet));
+						.tilfojAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet),oversigt.fåMedarbejder(initialer));
 			}
 
 		} else {
@@ -331,7 +331,7 @@ public class App {
 	private static void opfolgning() {
 
 		System.out.println("Hvilket projekt vil du indhente opfølgning om?");
-		bruger.projektlederFor(bruger);
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
 
 		bruger.projekter.get(projekt).opfolgning();
