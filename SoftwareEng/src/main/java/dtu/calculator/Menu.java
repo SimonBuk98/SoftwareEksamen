@@ -16,17 +16,19 @@ public class Menu {
 		System.out.println("5 for at tjekke registreret tid");
 		System.out.println("6 for at opdatere din status");
 		System.out.println("7 for at anmode om hjælp");
+		System.out.println("8 for at logge ud");
+		System.out.println("9 for at lukke program");
 
 		if (id.projektleder) {
 			System.out.println("");
 			System.out.println("Projektleder-menu:");
-			System.out.println("8 for at oprette en aktivitet");
-			System.out.println("9 for at slette en aktivitet");
-			System.out.println("10 for at slette et projekt");
-			System.out.println("11 for at tilføje medarbejder til projekt");
-			System.out.println("12 for at tilføje medarbejder til aktivitet");
-			System.out.println("13 for at indhente opfølgning");
-			System.out.println("14 for at sætte estimeret tid for projekt");
+			System.out.println("10 for at oprette en aktivitet");
+			System.out.println("11 for at slette en aktivitet");
+			System.out.println("12 for at slette et projekt");
+			System.out.println("13 for at tilføje medarbejder til projekt");
+			System.out.println("14 for at tilføje medarbejder til aktivitet");
+			System.out.println("15 for at indhente opfølgning");
+			System.out.println("16 for at sætte estimeret tid for projekt");
 		
 		
 

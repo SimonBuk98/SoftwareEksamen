@@ -13,8 +13,9 @@ Then brugeren er tilføjet til projektet
  
 
 Scenario: Secondary scenario
-Given at brugeren "ABC" er eksisterer
-And projektet "Test" ikke eksisterer
+Given at brugeren "ABC” "projektleder
+And projektet "projekt" eksisterer
 And medarbejderen "HEJ" eksisterer
+And medarbejderen er en del af projektet
 When brugeren tilføjer medarbejderen til projektet
-Then fås fejlmeddelelsen "projekt eksisterer ikke"
+Then fås fejlmeddelelsen "Brugeren HEJ er allerede en del af projektet projekt"

@@ -74,5 +74,21 @@ public class Oversigt {
 			System.out.println(i + ": " + projekter.get(i).navn + "-" + projekter.get(i).projektnummer);
 		}
 	}
+	
+	public ArrayList<Bruger> ledigeBrugere(Projekt projekt) {
+		ArrayList<Bruger> ledige = new ArrayList<Bruger>();
+		for (int i = 0; i < brugere.size(); i++) {
+			if (brugere.get(i).ledig(projekt) && projekt.tjekForMedarbejder(brugere.get(i).initialer)) {
+				ledige.add(brugere.get(i));
+			}
+		}
+		return ledige;
+	}
+	
+	public void printLedige(ArrayList<Bruger> ledige) {
+		for (int i = 0; i < ledige.size(); i++) {
+				System.out.println(i + ": " + brugere.get(i).initialer);
+			}
+		}
 
 }

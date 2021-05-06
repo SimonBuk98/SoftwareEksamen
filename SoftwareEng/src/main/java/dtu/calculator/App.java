@@ -125,13 +125,16 @@ public class App {
 		System.out.println("Indtast hvor meget tid der skal registreres:");
 		double tid = scanner.nextDouble();
 		bruger.aktiviteter.get(valg).satTid(bruger, tid);
-
 	}
 
 	public static void satStatus() {
 		System.out.println("Indtast ny status:");
 		menu.status();
-		bruger.status = scanner.nextInt();
+		bruger.satStatus(scanner.nextInt());
+		System.out.println("Indtast start-dato DDMMYYYY:");
+		bruger.statusFra(scanner.nextInt());
+		System.out.println("Indtast slut-dato DDMMYYYY:");
+		bruger.statusTil(scanner.nextInt());
 	}
 
 	public static void anmodHjalp() {
@@ -241,25 +244,28 @@ public class App {
 	}
 
 	private static void brugerProjekt() {
-		System.out.println("Hvilken bruger vil du tilføjer?");
-		String initialer = scanner.next();
 		System.out.println("Vælg et projekt:");
-		bruger.projektlederFor(bruger);
+		
+		System.out.println(bruger.projektlederFor(bruger).size());
+		System.out.println(bruger.projekter.size());
+		
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
+		
+		System.out.println("Hvilken bruger vil du tilføje?");
+		oversigt.printLedige(oversigt.ledigeBrugere(bruger.projektlederFor(bruger).get(projekt)));
+		int tilføj = scanner.nextInt();
+		
+		Bruger ledig = oversigt.ledigeBrugere(bruger.projektlederFor(bruger).get(projekt)).get(tilføj); 
 
-		if (oversigt.tjekMedarbejder(initialer)) {
-			if (bruger.projekter.get(projekt).tjekForMedarbejder(initialer)) {
-				fejlbesked.satFejlbesked("Brugeren " + initialer + " er allerede en del af projektet "
-						+ bruger.projekter.get(projekt).navn);
-				fejlbesked.faFejlbesked();
+			if (bruger.projektlederFor(ledig).get(projekt).tjekForMedarbejder(ledig.initialer)) {
+				fejlbesked.satFejlbesked("Brugeren " + ledig.initialer + " er allerede en del af projektet "
+						+ bruger.projektlederFor(bruger).get(projekt).navn);
+				System.out.println(fejlbesked.faFejlbesked());
 			} else {
-				bruger.projekter.get(projekt).tilfojmedarbejder(oversigt.fåMedarbejder(initialer));
-				oversigt.fåMedarbejder(initialer).tilfojProjekt(bruger.projekter.get(projekt));
+				bruger.projektlederFor(bruger).get(projekt).tilfojmedarbejder(ledig);
+				ledig.tilfojProjekt(bruger.projektlederFor(bruger).get(projekt));
 			}
-		} else {
-			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
-			System.out.println(fejlbesked.faFejlbesked());
-		}
 	}
 
 	private static void brugerAktivitet() {
@@ -270,10 +276,10 @@ public class App {
 		if (oversigt.tjekMedarbejder(initialer)) {
 
 			System.out.println("Vælg et projekt:");
-			bruger.projektlederFor(bruger);
+			bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 			int projekt = scanner.nextInt();
 
-			if (!bruger.projekter.get(projekt).tjekForMedarbejder(initialer)) {
+			if (!bruger.projektlederFor(bruger).get(projekt).tjekForMedarbejder(initialer)) {
 
 				System.out.println(
 						"Brugeren kan ikke tilføjes til aktiviteten uden at være en del af det tilhørende projekt");
@@ -285,16 +291,16 @@ public class App {
 					return;
 				}
 
-				bruger.projekter.get(projekt).tilfojmedarbejder(oversigt.fåMedarbejder(initialer));
-				oversigt.fåMedarbejder(initialer).tilfojProjekt(bruger.projekter.get(projekt));
+				bruger.projektlederFor(bruger).get(projekt).tilfojmedarbejder(oversigt.fåMedarbejder(initialer));
+				oversigt.fåMedarbejder(initialer).tilfojProjekt(bruger.projektlederFor(bruger).get(projekt));
 			}
 
 			System.out.println("Vælg en aktivitet:");
-			bruger.projekter.get(projekt).printAktiviteter();
+			bruger.projektlederFor(bruger).get(projekt).printAktiviteter();
 			int aktivitet = scanner.nextInt();
 
 			if (oversigt.fåMedarbejder(initialer)
-					.tjekAktivitet(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).navn)) {
+					.tjekAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet).navn)) {
 
 				fejlbesked.satFejlbesked("Brugeren er allerde en del af aktiviteten");
 				System.out.println(fejlbesked.faFejlbesked());
@@ -302,7 +308,7 @@ public class App {
 			} else {
 
 				oversigt.fåMedarbejder(initialer)
-						.tilfojAktivitet(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet));
+						.tilfojAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet));
 			}
 
 		} else {
@@ -338,6 +344,12 @@ public class App {
 	public static void options() {
 		int valg = scanner.nextInt();
 
+		//test mulighed
+		if (valg == 0) {
+			System.out.println(oversigt.brugere.size());
+		}
+		
+		
 		if (valg == 1) {
 			opretBruger();
 		}else if (valg == 2) {
@@ -353,18 +365,23 @@ public class App {
 		} else if (valg == 7) {
 			anmodHjalp();
 		} else if (valg == 8) {
-			opretAktivitet();
+			loggedind = false;
 		} else if (valg == 9) {
-			sletAktivitet();
+			loggedind = false;
+			tændt = false;
 		} else if (valg == 10) {
-			sletProjekt();
+			opretAktivitet();
 		} else if (valg == 11) {
-			brugerProjekt();
+			sletAktivitet();
 		} else if (valg == 12) {
-			brugerAktivitet();
+			sletProjekt();
 		} else if (valg == 13) {
-			opfolgning();
+			brugerProjekt();
 		} else if (valg == 14) {
+			brugerAktivitet();
+		} else if (valg == 15) {
+			opfolgning();
+		} else if (valg == 16) {
 			System.out.println("Vil du angive budgetteret tid eller start/slut-dato?");
 			System.out.println("1: budgetteret tid");
 			System.out.println("2: start/slut-dato");
