@@ -19,23 +19,12 @@ public class Status {
 					return false;
 				}
 			} else if (fra.before(projekt.slut)) {
-				return false;
+				if (til.before(projekt.slut)) {
+					return false;
+				}
 				}
 			}
 	return true;
-	}
-	
-	public boolean tjekLedighed(Aktivitet aktivitet) {
-		if (status == 1) {
-			if (fra.before(aktivitet.start)) {
-				if (til.after(aktivitet.start)) {
-					return false;
-				}
-			} else if (fra.before(aktivitet.slut)) {
-				return false;
-				}
-			}
-	return true;	
 	}
 	
 	public static Calendar dato(int dag, int måned, int år) {

@@ -33,9 +33,9 @@ public class Oversigt {
 		return false;	
 	}
 
-	public static boolean tjekProjekt(String projekt ,int nummer){
+	public static boolean tjekProjekt(String projekt){
 		for (int i = 0; i < projekter.size(); i++) {
-			if (projekter.get(i).projektnummer == nummer && projekter.get(i).navn.equals(projekt)) {
+			if (projekter.get(i).navn.equals(projekt)) {
 				return true;
 			}
 		}
@@ -45,7 +45,7 @@ public class Oversigt {
 	public Bruger fåMedarbejder(String initialer) {
 		int j = 0;
 		for (int i = 0; i < brugere.size(); i++) {
-			if (brugere.get(i).initialer == initialer) {
+			if (brugere.get(i).initialer.equals(initialer)) {
 				j = i;
 				break;
 			}
@@ -53,10 +53,10 @@ public class Oversigt {
 		return brugere.get(j);
 	}
 
-	public static Projekt faProjekt(int nummer) {
+	public static Projekt faProjekt(String navn) {
 		int j = 0;
 		for (int i = 0; i < projekter.size(); i++) {
-			if (projekter.get(i).projektnummer == nummer) {
+			if (projekter.get(i).navn.equals(navn)) {
 				j = i;
 				break;
 			}
@@ -78,16 +78,17 @@ public class Oversigt {
 	public ArrayList<Bruger> ledigeBrugere(Projekt projekt) {
 		ArrayList<Bruger> ledige = new ArrayList<Bruger>();
 		for (int i = 0; i < brugere.size(); i++) {
-			if (brugere.get(i).ledig(projekt) && projekt.tjekForMedarbejder(brugere.get(i).initialer)) {
+			if (brugere.get(i).ledig(projekt) && !projekt.tjekForMedarbejder(brugere.get(i).initialer)) {
 				ledige.add(brugere.get(i));
 			}
 		}
+		
 		return ledige;
 	}
 	
 	public void printLedige(ArrayList<Bruger> ledige) {
 		for (int i = 0; i < ledige.size(); i++) {
-				System.out.println(i + ": " + brugere.get(i).initialer);
+				System.out.println(i + ": " + ledige.get(i).initialer);
 			}
 		}
 

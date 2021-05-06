@@ -33,12 +33,13 @@ public class Bruger {
 	}
 	
 	public boolean ledig(Projekt projekt) {
+		boolean ledig = true;
 		for (int i = 0; i < status.size(); i++) {
 			if (!status.get(i).tjekLedighed(projekt)) {
-				return false;
+				ledig = false;
 			}
 		}
-		return true;
+		return ledig;
 	}
 
 	public String faInitialer() {

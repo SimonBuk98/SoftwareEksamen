@@ -21,16 +21,17 @@ public class Projekt {
 
 	Fejlbesked fejl = new Fejlbesked();
 
-	public Projekt(String navn, int projektnummer) {
+	public Projekt(String navn, Oversigt oversigt) {
 		this.navn = navn;
-		this.projektnummer = projektnummer;
+		int year = start.get(Calendar.YEAR);
+		this.projektnummer = year*100 + oversigt.projekter.size()+1;
 	}
 
 	public void tilfojmedarbejder(Bruger brugeren) {
 		medarbejderliste.add(brugeren);
 	}
 
-	public static boolean tjekForMedarbejder(String bruger) {
+	public boolean tjekForMedarbejder(String bruger) {
 		for (int i = 0; i < medarbejderliste.size(); i++) {
 			if (bruger == medarbejderliste.get(i).initialer) {
 				return true;

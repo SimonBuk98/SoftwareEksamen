@@ -31,7 +31,7 @@ public class Aktivitet {
                 return true;
             }
         }
-        return false; 
+        return false;
     }
 
     public static double sumTid(){
