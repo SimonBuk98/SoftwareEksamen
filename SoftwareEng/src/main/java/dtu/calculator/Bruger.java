@@ -65,7 +65,7 @@ public class Bruger {
 	
 	public boolean tjekAktivitet(String aktivitet) {
 		for(int i = 0; i < aktiviteter.size(); i++){
-			if (aktivitet == aktiviteter.get(i).navn){
+			if (aktivitet.equals(aktiviteter.get(i).navn)){
 				return true;
 			}
 		}

@@ -9,7 +9,6 @@ public class Projekt {
 	int projektnummer;
 
 	static Bruger projektleder;
-	
 
 	static ArrayList<Bruger> medarbejderliste = new ArrayList<Bruger>();
 	static ArrayList<Aktivitet> aktivitetsliste = new ArrayList<Aktivitet>();
@@ -24,7 +23,7 @@ public class Projekt {
 	public Projekt(String navn, Oversigt oversigt) {
 		this.navn = navn;
 		int year = start.get(Calendar.YEAR);
-		this.projektnummer = year*100 + oversigt.projekter.size()+1;
+		this.projektnummer = year * 100 + oversigt.projekter.size() + 1;
 	}
 
 	public void tilfojmedarbejder(Bruger brugeren) {
@@ -33,7 +32,7 @@ public class Projekt {
 
 	public boolean tjekForMedarbejder(String bruger) {
 		for (int i = 0; i < medarbejderliste.size(); i++) {
-			if (bruger == medarbejderliste.get(i).initialer) {
+			if (bruger.equals(medarbejderliste.get(i).initialer)) {
 				return true;
 			}
 		}
@@ -74,7 +73,9 @@ public class Projekt {
 	}
 
 	public void tilfojAktivitet(Aktivitet aktiviteten) {
+
 		aktivitetsliste.add(aktiviteten);
+
 	}
 
 	public void fjernAktivitet(Aktivitet fjern) {
@@ -85,12 +86,12 @@ public class Projekt {
 		double sum = 0;
 		System.out.println("Tidsforbrug for aktiviteter under projektet " + navn + ":");
 		for (int i = 0; i < aktivitetsliste.size(); i++) {
-		
+
 			System.out.println(aktivitetsliste.get(i).navn + ": " + aktivitetsliste.get(i).sumTid() + " timer");
 			sum = sum + aktivitetsliste.get(i).sumTid();
 		}
 		System.out.println("Samlet tidsforbrug for projekt: " + sum + " timer");
-		System.out.println("Forventet restarbejder: " + (budgetteretTid-sum) + " timer");
+		System.out.println("Forventet restarbejder: " + (budgetteretTid - sum) + " timer");
 	}
 
 }

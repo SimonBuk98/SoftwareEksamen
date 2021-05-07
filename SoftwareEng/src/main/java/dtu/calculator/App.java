@@ -42,7 +42,7 @@ public class App {
 		if (oversigt.tjekMedarbejder(login)) {
 			loggedind = true;
 			bruger = oversigt.fåMedarbejder(login);
-			
+
 		} else {
 			System.out.println("Login fejlede, prøv igen");
 		}
@@ -67,11 +67,18 @@ public class App {
 			System.out.println("Vælg et projekt:");
 			oversigt.printProjekter();
 			int projektnummer = scanner.nextInt();
+
+			// den gamle projektleder
+			if (oversigt.projekter.get(projektnummer).projektleder != null) {
+				oversigt.projekter.get(projektnummer).projektleder.projektleder = false;
+			}
+
 			oversigt.projekter.get(projektnummer).projektleder = oversigt.fåMedarbejder(initialer);
 			oversigt.fåMedarbejder(initialer).projektleder = true;
 
 			oversigt.projekter.get(projektnummer).tilfojmedarbejder(oversigt.fåMedarbejder(initialer));
 			oversigt.fåMedarbejder(initialer).tilfojProjekt(oversigt.projekter.get(projektnummer));
+
 		} else {
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
 			System.out.println(fejlbesked.faFejlbesked());
@@ -91,23 +98,36 @@ public class App {
 		int projekt = scanner.nextInt();
 		if (oversigt.tjekProjekt(oversigt.projekter.get(projekt).navn)) {
 
-			if (bruger == oversigt.projekter.get(projekt).projektleder) {
-				System.out.println("Indtast navn på aktivitet:");
-				String navn1 = scanner.next();
-				if (!oversigt.projekter.get(projekt).tjekAktivitet(navn1)) {
-					oversigt.projekter.get(projekt).tilfojAktivitet(new Aktivitet(navn1));
+			System.out.println("Indtast navn på aktivitet:");
+			String navn1 = scanner.next();
+
+			if (oversigt.projekter.size() != 0) {
+				if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
+					System.out.println("11: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
+				}
+			}
+			if (!oversigt.projekter.get(projekt).tjekAktivitet(navn1)) {
+
+				if (oversigt.projekter.size() != 0) {
+					if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
+						System.out.println("22: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
+					}
 				}
 
-				else {
-					fejlbesked.satFejlbesked("Der eksisterer allerede en aktivitet med navnet " + "\""
-							+ oversigt.projekter.get(projekt).navn + "\"");
-					System.out.println(fejlbesked.faFejlbesked());
+				// linje fucker navne op for aktiviteter
+				oversigt.projekter.get(projekt).tilfojAktivitet(new Aktivitet(navn1));
+
+				if (oversigt.projekter.size() != 0) {
+					if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
+						System.out.println("33: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
+					}
 				}
+
 			}
 
 			else {
-				fejlbesked.satFejlbesked(
-						"Du er ikke projektleder på projekt " + oversigt.projekter.get(projekt).projektnummer);
+				fejlbesked.satFejlbesked("Der eksisterer allerede en aktivitet med navnet " + "\""
+						+ oversigt.projekter.get(projekt).navn + "\"");
 				System.out.println(fejlbesked.faFejlbesked());
 			}
 		}
@@ -122,7 +142,7 @@ public class App {
 			double tid = scanner.nextDouble();
 			bruger.aktiviteter.get(valg).satTid(bruger, tid);
 		} else {
-			fejlbesked.satFejlbesked("Du er ikke tildelt nogen aktiviteter");
+			fejlbesked.satFejlbesked("Du er ikke tildelt nogen aktiviteter at registrere tid på");
 			System.out.println(fejlbesked.faFejlbesked());
 		}
 	}
@@ -138,7 +158,7 @@ public class App {
 	}
 
 	public static void anmodHjalp() {
-		System.out.println("Indtast initialer for brugeren der anmodes");
+		System.out.println("Hvem beder du om hjælp?");
 		String hjalp = scanner.next();
 		if (oversigt.tjekMedarbejder(hjalp)) {
 
@@ -146,7 +166,8 @@ public class App {
 			bruger.printAktiviteter();
 			int aktivitet = scanner.nextInt();
 
-			oversigt.fåMedarbejder(hjalp).tilfojAktivitet(bruger.aktiviteter.get(aktivitet), oversigt.fåMedarbejder(hjalp));
+			oversigt.fåMedarbejder(hjalp).tilfojAktivitet(bruger.aktiviteter.get(aktivitet),
+					oversigt.fåMedarbejder(hjalp));
 		} else {
 			fejlbesked.satFejlbesked("Der eksisterer ikke en bruger med intialerne " + hjalp);
 			System.out.println(fejlbesked.faFejlbesked());
@@ -179,36 +200,44 @@ public class App {
 	}
 
 	private static void startSlutAktivitet() {
-		System.out.println("Hvilket projekt (projektnummer) hører aktiviteten under?");
-		bruger.projektlederFor(bruger);
+		System.out.println("Hvilket projekt hører aktiviteten under?");
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
 
-		System.out.println("Hvilken aktivitet?");
-		bruger.projekter.get(projekt).printAktiviteter();
-		int aktivitet = scanner.nextInt();
-
-		System.out.println("Angiv startdato DDMMYYYY");
-		int start = scanner.nextInt();
-
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.DAY_OF_MONTH, start / 1000000);
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.MONTH, (start / 10000) % 100);
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.YEAR, start % 10000);
-
-		System.out.println("Angiv slutdato DDMMYYYY");
-		int slut = scanner.nextInt();
-
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.DAY_OF_MONTH, slut / 1000000);
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.MONTH, (slut / 10000) % 100);
-		bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.YEAR, slut % 10000);
-
-		if (bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut
-				.before(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start)) {
-
-			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start = null;
-			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut = null;
-
-			fejlbesked.satFejlbesked("Ugyldige datoer");
+		if (bruger.projektlederFor(bruger).size() == 0) {
+			fejlbesked.satFejlbesked("Projektet er tomt for aktiviteter");
 			System.out.println(fejlbesked.faFejlbesked());
+		} else {
+			System.out.println("Hvilken aktivitet?");
+			bruger.projekter.get(projekt).printAktiviteter();
+			int aktivitet = scanner.nextInt();
+
+			System.out.println("Angiv startdato DDMMYYYY");
+			int start = scanner.nextInt();
+
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.DAY_OF_MONTH,
+					start / 1000000);
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.MONTH,
+					(start / 10000) % 100);
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start.set(Calendar.YEAR, start % 10000);
+
+			System.out.println("Angiv slutdato DDMMYYYY");
+			int slut = scanner.nextInt();
+
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.DAY_OF_MONTH,
+					slut / 1000000);
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.MONTH, (slut / 10000) % 100);
+			bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut.set(Calendar.YEAR, slut % 10000);
+
+			if (bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut
+					.before(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start)) {
+
+				bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).start = null;
+				bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet).slut = null;
+
+				fejlbesked.satFejlbesked("Ugyldige datoer");
+				System.out.println(fejlbesked.faFejlbesked());
+			}
 		}
 
 	}
@@ -304,8 +333,9 @@ public class App {
 
 			} else {
 
-				oversigt.fåMedarbejder(initialer)
-						.tilfojAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet),oversigt.fåMedarbejder(initialer));
+				oversigt.fåMedarbejder(initialer).tilfojAktivitet(
+						bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet),
+						oversigt.fåMedarbejder(initialer));
 			}
 
 		} else {
@@ -350,7 +380,9 @@ public class App {
 //			System.out.println("Antal på projeket: " + oversigt.projekter.get(0).medarbejderliste.size());
 //			System.out.print(
 //					"Ledige på projekt: " + oversigt.ledigeBrugere(bruger.projektlederFor(bruger).get(0)).size());
-			System.out.println(bruger.initialer);
+//			System.out.println(bruger.initialer);
+			System.out.println("Aktivitet 0: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
+			System.out.println("Aktivitet 1: " + oversigt.projekter.get(0).aktivitetsliste.get(1).navn);
 
 		}
 

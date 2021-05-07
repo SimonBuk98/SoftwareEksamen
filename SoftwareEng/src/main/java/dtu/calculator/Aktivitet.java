@@ -4,7 +4,7 @@ import java.util.Calendar;
 
 public class Aktivitet {
 
-    public String navn;
+    public static String navn;
     public static  ArrayList<Tidsforbrug> tider = new ArrayList<Tidsforbrug>();
     Calendar start = Calendar.getInstance();
     Calendar slut = Calendar.getInstance();
@@ -25,10 +25,8 @@ public class Aktivitet {
 	}
 
     public boolean satTid(Bruger bruger, double tid){
-    	System.out.println("Størrelse på tider: " + tider.size());
         for (int i = 0; i < tider.size(); i++){
             if (bruger == tider.get(i).bruger){
-            	System.out.println("inde hos " + tider.get(i).bruger.initialer);
                 tider.get(i).satTid(tid);
                 return true;
             }
@@ -41,6 +39,7 @@ public class Aktivitet {
     	for (int i = 0; i < tider.size(); i++){
     		sum += tider.get(i).tid;
         }
+    	System.out.println("Sum for " + navn + ": " + sum);
     	return sum;
     }
 }
