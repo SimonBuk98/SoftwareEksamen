@@ -16,9 +16,8 @@ public class App {
 
 	public static void main(String[] args) {
 
-		opretBruger();
-		opretProjekt();
-		opretAktivitet();
+		Bruger admin = new Bruger("admin");
+		oversigt.tilføjMedarbjeder(admin);
 
 		while (tændt) {
 			while (!loggedind) {
@@ -92,36 +91,20 @@ public class App {
 	}
 
 	public static void opretAktivitet() {
-		System.out.println("Projekter:");
-		oversigt.printProjekter();
-		System.out.println("Vælg et projekt til aktiviteten");
-		int projekt = scanner.nextInt();
-		if (oversigt.tjekProjekt(oversigt.projekter.get(projekt).navn)) {
+
+		if (bruger.projektlederFor(bruger).size() != 0) {
+
+			System.out.println("Projekter:");
+			bruger.printProjektlederFor(bruger.projektlederFor(bruger));
+			System.out.println("Vælg et projekt til aktiviteten");
+			int projekt = scanner.nextInt();
 
 			System.out.println("Indtast navn på aktivitet:");
 			String navn1 = scanner.next();
 
-			if (oversigt.projekter.size() != 0) {
-				if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
-					System.out.println("11: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
-				}
-			}
 			if (!oversigt.projekter.get(projekt).tjekAktivitet(navn1)) {
 
-				if (oversigt.projekter.size() != 0) {
-					if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
-						System.out.println("22: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
-					}
-				}
-
-				// linje fucker navne op for aktiviteter
-				oversigt.projekter.get(projekt).tilfojAktivitet(new Aktivitet(navn1));
-
-				if (oversigt.projekter.size() != 0) {
-					if (oversigt.projekter.get(0).aktivitetsliste.size() != 0) {
-						System.out.println("33: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
-					}
-				}
+				bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.add(new Aktivitet(navn1));
 
 			}
 
@@ -130,6 +113,9 @@ public class App {
 						+ oversigt.projekter.get(projekt).navn + "\"");
 				System.out.println(fejlbesked.faFejlbesked());
 			}
+		} else {
+			fejlbesked.satFejlbesked("Du har ingen projekter at tilføjer aktiviteter til");
+			System.out.println(fejlbesked.faFejlbesked());
 		}
 	}
 
@@ -191,7 +177,7 @@ public class App {
 
 	private static void sletProjekt() {
 		System.out.println("Hvilket af følgende projekter vil du slette?");
-		bruger.projektlederFor(bruger);
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
 
 		oversigt.fjernProjekt(bruger.projekter.get(projekt));
@@ -349,7 +335,7 @@ public class App {
 	private static void budget() {
 
 		System.out.println("Hvilket projekt vil du sætte budgetteret tid for?");
-		bruger.projektlederFor(bruger);
+		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		int projekt = scanner.nextInt();
 
 		System.out.println("Hvor mange timer skal projektet budgetteres til?");
@@ -381,8 +367,11 @@ public class App {
 //			System.out.print(
 //					"Ledige på projekt: " + oversigt.ledigeBrugere(bruger.projektlederFor(bruger).get(0)).size());
 //			System.out.println(bruger.initialer);
-			System.out.println("Aktivitet 0: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
-			System.out.println("Aktivitet 1: " + oversigt.projekter.get(0).aktivitetsliste.get(1).navn);
+//			System.out.println("Aktivitet 0: " + oversigt.projekter.get(0).aktivitetsliste.get(0).navn);
+//			System.out.println("Aktivitet 1: " + oversigt.projekter.get(0).aktivitetsliste.get(1).navn);'
+
+			System.out.println("Aktivitet nummer 1: " + bruger.aktiviteter.get(0).tider.get(0).tid);
+			System.out.println("Aktivitet nummer 2: " + bruger.aktiviteter.get(1).tider.get(0).tid);
 
 		}
 

@@ -4,11 +4,12 @@ import java.util.Calendar;
 
 public class Aktivitet {
 
-    public static String navn;
-    public static  ArrayList<Tidsforbrug> tider = new ArrayList<Tidsforbrug>();
+    String navn;
+    public  ArrayList<Tidsforbrug> tider = new ArrayList<Tidsforbrug>();
     Calendar start = Calendar.getInstance();
     Calendar slut = Calendar.getInstance();
 
+    
     
     public Aktivitet(String navn){
         this.navn = navn;
@@ -34,12 +35,11 @@ public class Aktivitet {
         return false;
     }
 
-    public static double sumTid(){
+    public double sumTid(){
     	double sum = 0;
     	for (int i = 0; i < tider.size(); i++){
     		sum += tider.get(i).tid;
         }
-    	System.out.println("Sum for " + navn + ": " + sum);
     	return sum;
     }
 }
