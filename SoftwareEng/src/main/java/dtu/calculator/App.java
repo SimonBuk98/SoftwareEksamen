@@ -392,7 +392,13 @@ public class App {
 
 	//s191252
 	public static void options() {
-		int valg = scanner.nextInt();
+		int valg;
+		if (bruger.projektleder) {
+		valg = fejlbesked.integer(scanner, 1, 16);
+		}
+		else {
+		valg = fejlbesked.integer(scanner, 1, 9);
+		}
 
 		if (valg == 1) {
 			opretBruger();
@@ -430,7 +436,7 @@ public class App {
 			System.out.println("Vil du angive budgetteret tid eller start/slut-dato?");
 			System.out.println("1: budgetteret tid");
 			System.out.println("2: start/slut-dato");
-			int valg2 = scanner.nextInt();
+			int valg2 = fejlbesked.integer(scanner, 1, 2);
 
 			if (valg2 == 1) {
 				budget();
@@ -439,7 +445,7 @@ public class App {
 				System.out.println("1: aktivitet");
 				System.out.println("2: projekt");
 
-				int valg3 = scanner.nextInt();
+				int valg3 = fejlbesked.integer(scanner, 1, 2);
 
 				if (valg3 == 1) {
 					startSlutAktivitet();
