@@ -1,4 +1,4 @@
-//s193939
+#s193939
 Feature: Opret bruger
 Description: Bruger opretter en bruger
 Actor: Bruger

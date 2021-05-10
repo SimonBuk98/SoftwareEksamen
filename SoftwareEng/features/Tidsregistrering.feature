@@ -1,4 +1,4 @@
-//s193939
+#s193939
 Feature: Tidsregistrering
 Description: Bruger registrerer tid
 

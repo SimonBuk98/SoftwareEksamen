@@ -1,4 +1,4 @@
-//s204501
+#s204501
 Feature: Udvælg projektleder
 Description: Bruger udvælger en projektleder
 Actor: Bruger

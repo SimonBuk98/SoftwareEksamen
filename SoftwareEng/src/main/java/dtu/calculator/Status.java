@@ -4,8 +4,8 @@ import java.util.Calendar;
 
 public class Status {
 	
-	Calendar fra;
-	Calendar til;
+	public Calendar fra;
+	public Calendar til;
 	int status;
 	
 	public Status(int status) {

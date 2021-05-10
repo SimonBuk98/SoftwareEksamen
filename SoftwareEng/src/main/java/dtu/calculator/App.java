@@ -36,7 +36,7 @@ public class App {
 		}
 	}
 
-	//191252
+	//s191252
 	public static void login() {
 
 		System.out.println("Login med dine initialer:");
@@ -52,7 +52,7 @@ public class App {
 		}
 	}
 
-	//204501
+	//s204501
 	public static void opretBruger() {
 		System.out.println("Indtast intialer for brugeren:");
 		String initialer = scanner.next();
@@ -65,7 +65,7 @@ public class App {
 		}
 	}
 
-	//204497
+	//s204497
 	private static void projektleder() {
 		if (!oversigt.projekter.isEmpty()) {
 		System.out.println("Hvem vil du udnævne til projektleder?");
@@ -75,7 +75,7 @@ public class App {
 			oversigt.printProjekter();
 			int projektnummer = fejlbesked.integer(scanner, 0, oversigt.projekter.size()-1);
 			
-			// den gamle projektleder
+			
 			if (oversigt.projekter.get(projektnummer).projektleder != null) {
 				oversigt.projekter.get(projektnummer).projektleder.projektleder = false;
 			}
@@ -97,7 +97,7 @@ public class App {
 		}
 	}
 
-	//193939
+	//s193939
 	public static void opretProjekt() {
 		System.out.println("Indtast navn for projekt:");
 		String navn = scanner.next();
@@ -110,7 +110,7 @@ public class App {
 		
 	}
 
-	//191252
+	//s191252
 	public static void opretAktivitet() {
 
 		if (bruger.projektlederFor(bruger).size() != 0) {
@@ -140,7 +140,7 @@ public class App {
 		}
 	}
 
-	//204501
+	//s204501
 	public static void registrerTid() {
 		if (bruger.aktiviteter.size() > 0) {
 			System.out.println("Vælg en aktivitet at registrere tid på:");
@@ -155,7 +155,7 @@ public class App {
 		}
 	}
 
-	//204497
+	//s204497
 	public static void satStatus() {
 		System.out.println("Indtast ny status:");
 		menu.status();
@@ -164,9 +164,15 @@ public class App {
 		bruger.statusFra(scanner.nextInt());
 		System.out.println("Indtast slut-dato DDMMYYYY:");
 		bruger.statusTil(scanner.nextInt());
+		if (bruger.status.get(bruger.status.size()-1).fra.after(bruger.status.get(bruger.status.size()-1).til)) {
+			bruger.status.get(bruger.status.size()-1).fra = null;
+			bruger.status.get(bruger.status.size()-1).til = null;
+			fejlbesked.satFejlbesked("Ugyldige datoer");
+			System.out.println(fejlbesked.faFejlbesked());
+		}
 	}
 
-	//193939
+	//s193939
 	public static void anmodHjalp() {
 		System.out.println("Hvem beder du om hjælp?");
 		String hjalp = scanner.next();
@@ -194,7 +200,7 @@ public class App {
 			System.out.println("Hvilken af følgende aktiviteter vil du slette?");
 			bruger.projekter.get(projekt).printAktiviteter();
 			int aktivitet = scanner.nextInt();
-			bruger.projekter.get(projekt).fjernAktivitet(bruger.aktiviteter.get(aktivitet));
+			bruger.projekter.get(projekt).fjernAktivitet(bruger.projekter.get(projekt).aktivitetsliste.get(aktivitet));
 		} else {
 			fejlbesked.satFejlbesked("Projektet " + bruger.projekter.get(projekt).navn + " er tomt for aktiviteter");
 		}

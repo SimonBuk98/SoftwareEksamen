@@ -1,4 +1,4 @@
-//s204497
+#s204497
 Feature: Sæt estimeret tid
 Description: Sæt det estimerede start og sluttidspunkt for projektet
 Actor: Bruger
