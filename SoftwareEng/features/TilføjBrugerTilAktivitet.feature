@@ -5,11 +5,11 @@ Actor: Projektleder
 Scenario: Main scenario
 Given brugeren "ABC" er projektleder
 And projektet "Pacman" eksisterer
-And aktiviteten "Ghost" eksisterer i projektet "Pacman" 
+And aktiviteten "opbevaring" eksisterer i projektet "Pacman" 
 And medarbejderen "HEJ" eksisterer
 And medarbejderen "HEJ" er del af projektet "Pacman" 
-When brugeren tilføjer medarbejderen "HEJ" til aktiviteten "Ghost" under projektet "Pacman"
-Then brugeren "HEJ" er en del af aktiviteten "Ghost"
+When brugeren tilføjer medarbejderen "HEJ" til aktiviteten "opbevaring" under projektet "Pacman"
+Then brugeren "HEJ" er en del af aktiviteten "opbevaring"
 
 Scenario: Secondary scenario
 Given brugeren "ABC" er projektleder

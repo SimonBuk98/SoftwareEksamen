@@ -332,4 +332,15 @@ public class ExampleSteps {
 		assertEquals(app.oversigt.faProjekt(projekt).fåAktivitet(aktivitet).start.get(Calendar.YEAR), startY);
 
 	}
+	
+	@Given("bruger er ikke tildelt nogen aktiviteter")
+	public void bruger_er_ikke_tildelt_nogen_aktiviteter() {
+	    assertTrue(app.bruger.aktiviteter.isEmpty());
+	}
+
+	@When("bruger registrerer tid")
+	public void bruger_registrerer_tid() {
+	    app.registrerTid();
+	}
+	
 }

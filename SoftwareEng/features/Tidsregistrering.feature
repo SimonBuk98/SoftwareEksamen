@@ -11,8 +11,8 @@ When bruger "ABC" registrerer tid arbejdet på aktiviteten "Aktivitet" under pro
 Then brugerens totale tidsforbrug er opdateret
 
 
-#Scenario: Bruger registrerer tid på ikke-tildelt aktivitet
-#Given bruger "ASN" er logget ind
-#And bruger er ikke tildelt aktivitet "Aktivitet"
-#When bruger registrerer tid arbejdet på aktiviteten "Aktivitet"
-#Then fås fejlmeddelsen "Ulovlig tidsregistrering"
+Scenario: Bruger registrerer tid på ikke-tildelt aktivitet
+Given bruger "ASN" er logget ind
+And bruger er ikke tildelt nogen aktiviteter
+When bruger registrerer tid
+Then fås fejlmeddelsen "Du er ikke tildelt nogen aktiviteter at registrere tid på"
