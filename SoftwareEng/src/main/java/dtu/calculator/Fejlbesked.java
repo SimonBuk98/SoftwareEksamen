@@ -13,7 +13,7 @@ public  void satFejlbesked(String fejlbesked) {
 	this.fejlbesked = fejlbesked;
 }
 
-
+//s204501
 public int integer(Scanner console, int nedre, int øvre) {
     int input = console.nextInt(); 
    if(input < nedre || input > øvre) {

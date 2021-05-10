@@ -15,7 +15,7 @@ public class Aktivitet {
         this.navn = navn;
     }
 
-   
+   //s204501
     public double tjekMedarbejder(Bruger bruger){
 		for (int i = 0; i < tider.size(); i++){
             if (bruger == tider.get(i).bruger){
@@ -25,6 +25,7 @@ public class Aktivitet {
         return 0;
 	}
 
+    //s204497
     public boolean satTid(Bruger bruger, double tid){
         for (int i = 0; i < tider.size(); i++){
             if (bruger == tider.get(i).bruger){
@@ -35,6 +36,7 @@ public class Aktivitet {
         return false;
     }
 
+    //s193939
     public double sumTid(){
     	double sum = 0;
     	for (int i = 0; i < tider.size(); i++){

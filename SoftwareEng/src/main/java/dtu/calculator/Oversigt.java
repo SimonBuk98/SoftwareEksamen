@@ -24,6 +24,7 @@ public class Oversigt {
 		projekter.remove(projekt);
 	}
 
+	//s193939
 	public static boolean tjekMedarbejder(String initialer) {
 		for (int i = 0; i < brugere.size(); i++) {
 			if (brugere.get(i).initialer.equals(initialer)) {
@@ -33,6 +34,7 @@ public class Oversigt {
 		return false;	
 	}
 
+	//s191252
 	public static boolean tjekProjekt(String projekt){
 		for (int i = 0; i < projekter.size(); i++) {
 			if (projekter.get(i).navn.equals(projekt)) {
@@ -42,6 +44,7 @@ public class Oversigt {
 		return false;
 	}
 
+	//s204501
 	public Bruger fåMedarbejder(String initialer) {
 		int j = 0;
 		for (int i = 0; i < brugere.size(); i++) {
@@ -53,6 +56,7 @@ public class Oversigt {
 		return brugere.get(j);
 	}
 
+	//s204497
 	public static Projekt faProjekt(String navn) {
 		int j = 0;
 		for (int i = 0; i < projekter.size(); i++) {
@@ -75,6 +79,7 @@ public class Oversigt {
 		}
 	}
 	
+	//s193939
 	public ArrayList<Bruger> ledigeBrugere(Projekt projekt) {
 		ArrayList<Bruger> ledige = new ArrayList<Bruger>();
 		for (int i = 0; i < brugere.size(); i++) {
@@ -86,6 +91,7 @@ public class Oversigt {
 		return ledige;
 	}
 	
+	//s191252
 	public void printLedige(ArrayList<Bruger> ledige) {
 		for (int i = 0; i < ledige.size(); i++) {
 				System.out.println(i + ": " + ledige.get(i).initialer);

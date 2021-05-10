@@ -1,3 +1,4 @@
+//s191252
 Feature: Tilføj edarbejder til aktivitet
 Description: Bruger tilføjer medarbejder til aktivitet
  

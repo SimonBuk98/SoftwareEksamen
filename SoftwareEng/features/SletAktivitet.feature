@@ -1,3 +1,4 @@
+//s104501
 Feature: Slet aktivitet
 Description: Bruger sletter en aktivitet fra listen
  

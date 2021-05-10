@@ -18,6 +18,7 @@ public class Bruger {
 		this.status.add(new Status(status));
 	}
 	
+	//s191252
 	public void statusFra(int fra) {
 		int dag = fra / 1000000;
 		int måned = (fra / 10000) % 100;
@@ -25,6 +26,7 @@ public class Bruger {
 		status.get(status.size()-1).fra = Status.dato(dag, måned, år);
 	}
 	
+	//s204501
 	public void statusTil(int til) {
 		int dag = til / 1000000;
 		int måned = (til / 10000) % 100;
@@ -32,6 +34,7 @@ public class Bruger {
 		status.get(status.size()-1).til = Status.dato(dag, måned, år);
 	}
 	
+	//s204497
 	public boolean ledig(Projekt projekt) {
 		boolean ledig = true;
 		for (int i = 0; i < status.size(); i++) {
@@ -63,6 +66,7 @@ public class Bruger {
 		projekter.remove(projekt);
 	}
 	
+	//s193939
 	public boolean tjekAktivitet(String aktivitet) {
 		for(int i = 0; i < aktiviteter.size(); i++){
 			if (aktivitet.equals(aktiviteter.get(i).navn)){
@@ -71,18 +75,22 @@ public class Bruger {
 		}
 		return false;
 	}
+	
+	//s191252
 	public void printAktiviteter(){
 		for (int i = 0; i < aktiviteter.size(); i++){
 			System.out.println(i + ": " + aktiviteter.get(i).navn);
 		}	
 	}
 	
+	//s204501
 	public void printProjekter(){
 		for (int i = 0; i < projekter.size(); i++){
 			System.out.println(i + ": " + projekter.get(i).navn);
 		}	
 	}
 
+	//s204497
 	public ArrayList<Projekt> projektlederFor(Bruger bruger){
 		ArrayList<Projekt> samlet = new ArrayList<Projekt>();
 		for (int i = 0; i < projekter.size(); i++){
@@ -93,12 +101,14 @@ public class Bruger {
 		return samlet;
 	}
 	
+	//s193939
 	public void printProjektlederFor(ArrayList<Projekt> projekter){
 		for (int i = 0; i < projekter.size(); i++){
 			System.out.println(i + ": " + projekter.get(i).navn);
 		}	
 	}
 	
+	//s191252
 	public void printTid(Bruger bruger) {
 		for (int i = 0; i < aktiviteter.size(); i++){
 			System.out.println("Registreret tid på " + aktiviteter.get(i).navn + ": " + aktiviteter.get(i).tjekMedarbejder(bruger));

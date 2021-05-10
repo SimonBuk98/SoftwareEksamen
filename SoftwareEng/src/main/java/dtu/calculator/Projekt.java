@@ -20,6 +20,7 @@ public class Projekt {
 
 	Fejlbesked fejl = new Fejlbesked();
 
+	//s204501
 	public Projekt(String navn, Oversigt oversigt) {
 		this.navn = navn;
 		int year = start.get(Calendar.YEAR);
@@ -30,6 +31,7 @@ public class Projekt {
 		medarbejderliste.add(brugeren);
 	}
 
+	//s204497
 	public boolean tjekForMedarbejder(String bruger) {
 		for (int i = 0; i < medarbejderliste.size(); i++) {
 			if (bruger.equals(medarbejderliste.get(i).initialer)) {
@@ -39,6 +41,7 @@ public class Projekt {
 		return false;
 	}
 
+	//s193939
 	public static boolean tjekAktivitet(String navn) {
 		for (int i = 0; i < aktivitetsliste.size(); i++) {
 			if (aktivitetsliste.get(i).navn == navn) {
@@ -48,6 +51,7 @@ public class Projekt {
 		return false;
 	}
 
+	//s191252
 	public static Aktivitet fåAktivitet(String aktivitetsnavn) {
 		int j = 0;
 		for (int i = 0; i < aktivitetsliste.size(); i++) {
@@ -59,6 +63,7 @@ public class Projekt {
 		return aktivitetsliste.get(j);
 	}
 
+	//s204501
 	public void printAktiviteter() {
 		if (!aktivitetsliste.isEmpty()) {
 			for (int i = 0; i < aktivitetsliste.size(); i++) {
@@ -82,6 +87,7 @@ public class Projekt {
 		aktivitetsliste.remove(fjern);
 	}
 
+	//s204497
 	public void opfolgning() {
 		double sum = 0;
 		System.out.println("Tidsforbrug for aktiviteter under projektet " + navn + ":");

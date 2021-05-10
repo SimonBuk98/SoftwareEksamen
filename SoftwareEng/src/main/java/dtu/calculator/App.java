@@ -1,5 +1,8 @@
-package dtu.calculator;
+//Når programmet først køres eksisterer der kun én bruger med initialerne "admin".
+//Når man har logget ind med denne fås en menu af muligheder, som vælges med et input af typen int.
+//Hver gang en mulighed er ført til ende, vil man igen blive vist hovedmenuen.
 
+package dtu.calculator;
 import java.util.Calendar;
 import java.util.Scanner;
 
@@ -14,6 +17,7 @@ public class App {
 	public static Menu menu = new Menu();
 	public static Fejlbesked fejlbesked = new Fejlbesked();
 
+	//s193939
 	public static void main(String[] args) {
 
 		Bruger admin = new Bruger("admin");
@@ -32,6 +36,7 @@ public class App {
 		}
 	}
 
+	//191252
 	public static void login() {
 
 		System.out.println("Login med dine initialer:");
@@ -47,6 +52,7 @@ public class App {
 		}
 	}
 
+	//204501
 	public static void opretBruger() {
 		System.out.println("Indtast intialer for brugeren:");
 		String initialer = scanner.next();
@@ -59,7 +65,9 @@ public class App {
 		}
 	}
 
+	//204497
 	private static void projektleder() {
+		if (!oversigt.projekter.isEmpty()) {
 		System.out.println("Hvem vil du udnævne til projektleder?");
 		String initialer = scanner.next();
 		if (oversigt.tjekMedarbejder(initialer)) {
@@ -82,8 +90,14 @@ public class App {
 			fejlbesked.satFejlbesked("Brugeren " + initialer + " eksisterer ikke");
 			System.out.println(fejlbesked.faFejlbesked());
 		}
+		}
+		else {
+			fejlbesked.satFejlbesked("Der eksisterer ingen projekter");
+			System.out.println(fejlbesked.faFejlbesked());
+		}
 	}
 
+	//193939
 	public static void opretProjekt() {
 		System.out.println("Indtast navn for projekt:");
 		String navn = scanner.next();
@@ -93,8 +107,10 @@ public class App {
 		else {
 		oversigt.projekter.add(new Projekt(navn, oversigt));
 		}
+		
 	}
 
+	//191252
 	public static void opretAktivitet() {
 
 		if (bruger.projektlederFor(bruger).size() != 0) {
@@ -124,6 +140,7 @@ public class App {
 		}
 	}
 
+	//204501
 	public static void registrerTid() {
 		if (bruger.aktiviteter.size() > 0) {
 			System.out.println("Vælg en aktivitet at registrere tid på:");
@@ -138,6 +155,7 @@ public class App {
 		}
 	}
 
+	//204497
 	public static void satStatus() {
 		System.out.println("Indtast ny status:");
 		menu.status();
@@ -148,6 +166,7 @@ public class App {
 		bruger.statusTil(scanner.nextInt());
 	}
 
+	//193939
 	public static void anmodHjalp() {
 		System.out.println("Hvem beder du om hjælp?");
 		String hjalp = scanner.next();
@@ -165,10 +184,11 @@ public class App {
 		}
 	}
 
+	//s191252
 	private static void sletAktivitet() {
 		System.out.println("Hvilket af følgende projekter vil du slette en aktivitet fra?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 		if (!bruger.projekter.get(projekt).aktivitetsliste.isEmpty()) {
 			System.out.println("Hvilken af følgende aktiviteter vil du slette?");
@@ -180,20 +200,22 @@ public class App {
 		}
 	}
 
+	//s204501
 	private static void sletProjekt() {
 		System.out.println("Hvilket af følgende projekter vil du slette?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 		oversigt.fjernProjekt(bruger.projekter.get(projekt));
 		bruger.fjernProjekt(bruger.projekter.get(projekt));
 
 	}
 
+	//s204497
 	private static void startSlutAktivitet() {
 		System.out.println("Hvilket projekt hører aktiviteten under?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 		if (bruger.projektlederFor(bruger).size() == 0) {
 			fejlbesked.satFejlbesked("Projektet er tomt for aktiviteter");
@@ -234,11 +256,12 @@ public class App {
 
 	}
 
+	//s193939
 	private static void startSlutProjekt() {
 		System.out.println("Hvilket projekt?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
 		
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 		System.out.println("Angiv startdato DDMMYYYY");
 		int start = scanner.nextInt();
@@ -265,6 +288,7 @@ public class App {
 
 	}
 
+	//s191252
 	private static void brugerProjekt() {
 		System.out.println("Vælg et projekt:");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
@@ -288,6 +312,7 @@ public class App {
 
 	}
 
+	//s204501
 	private static void brugerAktivitet() {
 
 		System.out.println("Hvilken bruger vil du tilføjer?");
@@ -297,7 +322,7 @@ public class App {
 
 			System.out.println("Vælg et projekt:");
 			bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-			int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+			int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 			if (!bruger.projektlederFor(bruger).get(projekt).tjekForMedarbejder(initialer)) {
 
@@ -317,9 +342,8 @@ public class App {
 
 			System.out.println("Vælg en aktivitet:");
 			bruger.projektlederFor(bruger).get(projekt).printAktiviteter();
-			fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.size()-1);
 			
-			int aktivitet = scanner.nextInt();
+			int aktivitet = 		fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.size()-1);
 
 			if (oversigt.fåMedarbejder(initialer)
 					.tjekAktivitet(bruger.projektlederFor(bruger).get(projekt).aktivitetsliste.get(aktivitet).navn)) {
@@ -342,11 +366,12 @@ public class App {
 
 	}
 
+	//s204497
 	private static void budget() {
 
 		System.out.println("Hvilket projekt vil du sætte budgetteret tid for?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 		
 		System.out.println("Hvor mange timer skal projektet budgetteres til?");
 		double timer = scanner.nextDouble();
@@ -354,16 +379,18 @@ public class App {
 		bruger.projekter.get(projekt).budgetteretTid = timer;
 	}
 
+	//s193939
 	private static void opfolgning() {
 
 		System.out.println("Hvilket projekt vil du indhente opfølgning om?");
 		bruger.printProjektlederFor(bruger.projektlederFor(bruger));
-		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size());
+		int projekt = fejlbesked.integer(scanner, 0, bruger.projektlederFor(bruger).size()-1);
 
 		bruger.projekter.get(projekt).opfolgning();
 
 	}
 
+	//s191252
 	public static void options() {
 		int valg = scanner.nextInt();
 

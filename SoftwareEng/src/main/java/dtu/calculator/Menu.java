@@ -6,6 +6,7 @@ public class Menu {
 
 	Scanner scanner = new Scanner(System.in);
 
+	//s204497
 	public void startMenu(Bruger id){
 
 		System.out.println("Vælg en mulighed:");

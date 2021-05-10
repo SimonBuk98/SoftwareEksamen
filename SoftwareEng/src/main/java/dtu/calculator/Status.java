@@ -12,6 +12,7 @@ public class Status {
 		this.status = status;
 	}
 
+	//s193939
 	public boolean tjekLedighed(Projekt projekt) {
 		if (status > 1) {
 			if (fra.before(projekt.start)) {
